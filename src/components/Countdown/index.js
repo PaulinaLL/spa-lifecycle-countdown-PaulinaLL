@@ -10,7 +10,7 @@ class Countdown extends React.Component {
 
   calculateTimeLeft() {
     const now = Date.now();
-    const difference = new Date("2020-04-24") - now;
+    const difference = new Date("2020-04-23 15:30:00") - now;
     let timeLeft = {};
 
     if (difference > 0) {
@@ -24,12 +24,12 @@ class Countdown extends React.Component {
     console.log("time left:", timeLeft);
     return timeLeft;
   }
-
+  let timeMore = calculateTimeLeft()
   render() {
     return (
       <div className="wrapper">
         <div className="left" style={{ backgroundImage: `url(${picture})` }}>
-          <p onClick={this.calculateTimeLeft}> CLICK </p>
+    <p onClick={this.calculateTimeLeft}> CLICK  {this.timeMore}</p>
         </div>
         <div className="right">
           <h2>Coming soon</h2>
