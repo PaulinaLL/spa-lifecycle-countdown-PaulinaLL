@@ -16,17 +16,19 @@ class Countdown extends React.Component {
   }
 
   componentDidMount() {
-    const timer = setInterval(() => {
+    this.counterInterval = setInterval(() => {
+      console.log("MOUNT");
       this.calculateTimeLeft();
     }, 100);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    console.log("unmount!");
+    clearInterval(this.counterInterval);
   }
 
   calculateTimeLeft() {
     const now = Date.now();
-    const difference = new Date("2020-04-25 16:50:00") - now;
+    const difference = new Date("2020-04-25 23:10:00") - now;
 
     if (difference > 0) {
       this.setState({
@@ -43,7 +45,15 @@ class Countdown extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <div className="left" style={{ backgroundImage: `url(${picture})` }}>
+        <div
+          className="left"
+          style={
+            this.props.theme === "dark"
+              ? { color: "white", backgroundColor: "black" }
+              : { color: "black", backgroundColor: "pink" }
+          }
+          // { backgroundImage: `url(${picture})` }
+        >
           <p> days: {this.state.timeLeft.days} </p>
           <p> hours: {this.state.timeLeft.hours} </p>
           <p> minutes: {this.state.timeLeft.minutes} </p>
@@ -61,7 +71,7 @@ class Countdown extends React.Component {
 Countdown.defaultProps = {
   title: "Coming soon",
   subtitle: "Stick around to be one of the first",
-  theme: "",
+  theme: "dark",
 };
 
 export default Countdown;
