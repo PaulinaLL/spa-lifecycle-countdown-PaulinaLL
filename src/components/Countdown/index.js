@@ -16,10 +16,12 @@ class Countdown extends React.Component {
   }
 
   componentDidMount() {
-    this.calculateTimeLeft();
+    const timer = setInterval(() => {
+      this.calculateTimeLeft();
+    }, 100);
   }
   componentWillUnmount() {
-    clearInterval();
+    clearInterval(this.timer);
   }
 
   calculateTimeLeft() {
