@@ -18,8 +18,9 @@
 }
 .left {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   padding: 40px;
 }
 
@@ -32,6 +33,7 @@
   padding: 40px;
 }
 
-h2 {
-  margin: 0px;
+h2,
+p {
+  margin: 5px 5px;
 }
