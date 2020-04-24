@@ -15,15 +15,16 @@ class Countdown extends React.Component {
     this.calculateTimeLeft = this.calculateTimeLeft.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.calculateTimeLeft();
+  }
   componentWillUnmount() {
     clearInterval();
   }
 
   calculateTimeLeft() {
     const now = Date.now();
-    const difference = new Date("2020-04-24 16:50:00") - now;
-    // let timeLeft = {};
+    const difference = new Date("2020-04-25 16:50:00") - now;
 
     if (difference > 0) {
       this.setState({
@@ -34,26 +35,17 @@ class Countdown extends React.Component {
           seconds: Math.floor((difference / 1000) % 60),
         },
       });
-      // timeLeft = {
-      //   days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      //   hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      //   minutes: Math.floor((difference / 1000 / 60) % 60),
-      //   seconds: Math.floor((difference / 1000) % 60),
-      // };
     }
-
-    // console.log("time left:", timeLeft);
-    // return timeLeft;
   }
-  // let timeMore = calculateTimeLeft()
+
   render() {
     return (
       <div className="wrapper">
         <div className="left" style={{ backgroundImage: `url(${picture})` }}>
           <p> days: {this.state.timeLeft.days} </p>
-          <p> hours: {this.state.timeLeft.days} </p>
-          <p> minutes: {this.state.timeLeft.days} </p>
-          <p> seconds: {this.state.timeLeft.days} </p>
+          <p> hours: {this.state.timeLeft.hours} </p>
+          <p> minutes: {this.state.timeLeft.minutes} </p>
+          <p> seconds: {this.state.timeLeft.seconds} </p>
         </div>
         <div className="right">
           <h2>{this.props.title}</h2>
