@@ -54,10 +54,20 @@ class Countdown extends React.Component {
           }
           // { backgroundImage: `url(${picture})` }
         >
-          <p> days: {this.state.timeLeft.days} </p>
-          <p> hours: {this.state.timeLeft.hours} </p>
-          <p> minutes: {this.state.timeLeft.minutes} </p>
-          <p> seconds: {this.state.timeLeft.seconds} </p>
+          <p>
+            <span>{this.state.timeLeft.days} </span>
+            days
+          </p>
+          <p>
+            <span>{this.state.timeLeft.hours} </span> hours
+          </p>
+          <p>
+            <span>{this.state.timeLeft.minutes} </span>minutes
+          </p>
+          <p>
+            <span> {this.state.timeLeft.seconds} </span>
+            seconds
+          </p>
         </div>
         <div className="right">
           <h2>{this.props.title}</h2>
