@@ -1,5 +1,4 @@
 import React from "react";
-import picture from "../Countdown/waterfall.jpg";
 
 class Countdown extends React.Component {
   constructor(props) {
@@ -10,6 +9,7 @@ class Countdown extends React.Component {
         hours: 0,
         minutes: 0,
         seconds: 0,
+        deadline: this.props.deadline,
       },
     };
     this.calculateTimeLeft = this.calculateTimeLeft.bind(this);
@@ -18,28 +18,36 @@ class Countdown extends React.Component {
   componentDidMount() {
     this.counterInterval = setInterval(() => {
       console.log("MOUNT");
-      this.calculateTimeLeft();
-    }, 100);
+      this.calculateTimeLeft(this.state.deadline);
+    }, 1000);
   }
   componentWillUnmount() {
-    console.log("unmount!");
     clearInterval(this.counterInterval);
+    console.log("unmount!");
   }
 
   calculateTimeLeft() {
     const now = Date.now();
-    const difference = new Date("2020-04-25 23:10:00") - now;
+    const timeDifference = this.props.deadline - now;
 
-    if (difference > 0) {
+    if (timeDifference > 0) {
       this.setState({
         timeLeft: {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
+          days: Math.floor(timeDifference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((timeDifference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((timeDifference / 1000 / 60) % 60),
+          seconds: Math.floor((timeDifference / 1000) % 60),
         },
       });
+    } else {
+      this.props.parentFunc();
     }
+  }
+
+  changeDeadline() {
+    this.setState({
+      deadline: this.state.newDeadline,
+    });
   }
 
   render() {
@@ -48,12 +56,36 @@ class Countdown extends React.Component {
         <div
           className="left"
           style={
-            this.props.theme === "dark"
+            this.props.picture
+              ? {
+                  backgroundImage: `url(${this.props.picture})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                }
+              : this.props.theme === "dark"
               ? { color: "white", backgroundColor: "black" }
               : { color: "black", backgroundColor: "pink" }
           }
-          // { backgroundImage: `url(${picture})` }
         >
+          <div className="userInput">
+            <h4>Please enter the date </h4>
+            <p>Currently counting to: </p>
+            <form>
+              <input
+                style={
+                  this.props.theme === "dark"
+                    ? { color: "black" }
+                    : { color: "white" }
+                }
+                type="text"
+                onChange={(event) =>
+                  this.setState({ newDeadline: event.target.value })
+                }
+              ></input>
+              <button onClick={() => this.changeDeadline()}>Submit</button>
+            </form>
+          </div>
           <p>
             <span>{this.state.timeLeft.days} </span>
             days
